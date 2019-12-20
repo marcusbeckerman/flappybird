@@ -62,15 +62,15 @@ def resetgame():
 
 class Bird():
 
-    def __init__(self, x, y, a, v):
+    def __init__(self, x, y, gravity, v):
         '''
         Creates bird object
 
-        Bird(x=int, y=int, a=int, v=int)
+        Bird(x=int, y=int, gravity=int, v=int)
         '''
         self.x = x
         self.y = y
-        self.a = a
+        self.gravity = gravity
         self.v = v
 
     def draw(self, hasGravity=True):
@@ -82,7 +82,7 @@ class Bird():
         hasGravity is optional arg, default is True
         '''
         if hasGravity == True:
-            self.v += self.a
+            self.v += self.gravity
             self.y += self.v
         pygame.draw.rect(win, (255, 255, 0), (self.x, self.y, 50, 50))
 
@@ -156,7 +156,7 @@ while not run: #Wait for space to be pressed before starting
 
 while run: #Game starts here
     if not isLose:
-        pygame.time.delay(30)
+        pygame.time.delay(30) #Waits 30 ms so it isn't running incredibly fast
 
         win.fill((0, 153, 204)) #draws blue background
 
@@ -205,7 +205,7 @@ while run: #Game starts here
         pygame.display.update()
     else: #This runs when you lose
         win.fill((0, 153, 204))
-        bird.draw()
+        bird.draw(hasGravity=False)
         if isPipe2Visible:
             pipe2.draw()
         if isPipe1Visible:
